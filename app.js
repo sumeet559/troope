@@ -36,7 +36,7 @@ passport.use(new FacebookStrategy({
           "user_id": profile.id
         },function(err,result){
           if(err) throw err;
-              if(result.length===0)
+              if(result)
                 {
                   console.log("There is no such user, adding now");
                   var user_data={
@@ -46,7 +46,7 @@ passport.use(new FacebookStrategy({
                   db.collection('troope_users').insertOne(user_data,function(err,result){
                     if(err) throw err;
                     console.log("Successfully added a user: "+result);
-                    done(null,profile);
+                    return done(null,profile);
                   });
                 }
                 else {
