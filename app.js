@@ -30,7 +30,7 @@ passport.use('facebook',new FacebookStrategy({
     // console.log(profile);
 
     var user = {
-        'username' : profile.name.givenName + ' ' + profile.name.familyName,
+        'username' : profile.name,
         'user_id'   : profile.id,
         'token': accessToken
     }
