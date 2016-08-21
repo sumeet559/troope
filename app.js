@@ -27,39 +27,20 @@ passport.use(new FacebookStrategy({
     callbackURL: config.callback_url
   },
   function(accessToken, refreshToken, profile, done) {
-    process.nextTick(function () {
-      //Check whether the User exists or not using profile.id
-      if(config.use_database==='true')
-      {
-        MongoClient.connect(config.mongo_url, function(err, db) {
-        db.collection('troope_users').find({
-          "user_id": profile.id
-        },function(err,result){
-          if(err) throw err;
-              if(result)
-                {
-                  console.log("There is no such user, adding now");
-                  var user_data={
-                    "user_id":profile.id,
-                    "user_name":profile.username
-                  }
-                  db.collection('troope_users').insertOne(user_data,function(err,result){
-                    if(err) throw err;
-                    console.log("Successfully added a user: "+result);
-                    return done(null,profile);
-                  });
-                }
-                else {
-                  console.log("User Already Exists");
-                  return done(null, result);
-                }
-            });
-            db.close();
-        });
-      }
-      return done(null, profile);
-    });
-    
+    // console.log(profile);
+
+    var user = {
+        'email': profile.emails[0].value,
+        'name' : profile.name.givenName + ' ' + profile.name.familyName,
+        'id'   : profile.id,
+        'token': accessToken
+    }
+
+    // You can perform any necessary actions with your user at this point,
+    // e.g. internal verification against a users table,
+    // creating new user entries, etc.
+
+    return done(null, user); // the user object we just made gets passed to the route's controller as `req.user`
   }
 ));
 
