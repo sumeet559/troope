@@ -46,18 +46,20 @@ passport.use(new FacebookStrategy({
                   db.collection('troope_users').insertOne(user_data,function(err,result){
                     if(err) throw err;
                     console.log("Successfully added a user: "+result);
+                    done(null,profile);
                   });
                 }
                 else {
                   console.log("User Already Exists");
+                  return done(null, result);
                 }
             });
             db.close();
         });
       }
-      
+      return done(null, profile);
     });
-    return done(null, profile);
+    
   }
 ));
 
