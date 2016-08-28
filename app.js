@@ -37,7 +37,7 @@ passport.use('facebook',new FacebookStrategy({
         },function(err,result){
           if(err) throw err;
           console.log("hereteyee>>>>>>",result);
-              if(!result)
+              if(!result.username)
                 {
                   console.log("There is no such user, adding now");
                   
