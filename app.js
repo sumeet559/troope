@@ -29,7 +29,7 @@ passport.use('facebook',new FacebookStrategy({
   function(accessToken, refreshToken, profile, done) {
     var user_data={
                     "user_id":profile.id,
-                    "user_name":profile.displayName
+                    "username":profile.displayName
                   };
     if(config.use_database==='true')
       {
@@ -38,7 +38,7 @@ passport.use('facebook',new FacebookStrategy({
           "user_id": profile.id
         },function(err,result){
           if(err) throw err;
-              if(result.length===0)
+              if(result)
                 {
                   console.log("There is no such user, adding now");
                   
