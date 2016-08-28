@@ -36,13 +36,13 @@ passport.use('facebook',new FacebookStrategy({
           "user_id": profile.id
         },function(err,result){
           if(err) throw err;
+          console.log("hereteyee>>>>>>",result);
               if(!result)
                 {
                   console.log("There is no such user, adding now");
                   
                   db.collection('troope_users').insertOne(user_data,function(err,result){
                     if(err) throw err;
-                    console.log("Successfully added a user: "+result);
                   });
                 }
                 else {
