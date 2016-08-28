@@ -89,7 +89,7 @@ app.get('/logout', function(req, res){
 app.post('/user-put', function(req, res){
    console.log("In Submission POST");
    var user={
-            user_name:req.body.user_name,
+            username:req.body.username,
             user_id:req.body.user_id,
             data:{
               address:req.body.address,
