@@ -34,7 +34,7 @@ passport.use('facebook',new FacebookStrategy({
         'user_id'   : profile.id,
         'token': accessToken
     }
-
+    console.log("user details>>>>>>> ",user);
     // You can perform any necessary actions with your user at this point,
     // e.g. internal verification against a users table,
     // creating new user entries, etc.
