@@ -9,7 +9,39 @@
 	<a href="/auth/facebook"><img src="fb-login.jpg" width="151" height="24"></a>
 	</div>
 <% } else { %>
-	<h2>Hello, <%= user.username %>.</h2>
+	<% if(!user.data) { %>
+	<div>
+	<form method="post" action="/user-put" enctype="multipart/form-data"> 
+    <fieldset>
+        <legend>User Data</legend>
+        <div >
+            <div>	
+            		<input type="text" name="user_id" id="user_id" placeholder=<%= user.user_id %> value=<%= user.user_id %> >
+                    <input type="text" name="address" id="address" required> 
+                    <input type="text" name="bank_no" id="bank_no" required>
+                    <input type="text" name="current_company" id="current_company" required>
+                    <input type="text" name="job_title" id="job_title" required>
+                    <input type="text" name="freelancing" id="freelancing" required>
+                    <input type="text" name="bank_ifsc" id="bank_ifsc" required>
+                    <input type="text" name="looking_projects" id="looking_projects" required>
+                    <input type="text" name="mobile" id="mobile" required>
+            </div>
+        </div>
+    </fieldset>
+    <input type='submit'  id='submit' value='Submit your Details'/>
+	</form>
+	</div>
+	<% } else { %>
+	<h2>Hello, <%= user.username %></h2>
+	<p>Address: <%=user.data.address %></p>
+	<p>Bank A/C No: <%=user.data.bank_no></p>
+	<p>Current Company Name:<%=user.data.current_company></p>
+	<p>Current Job Title:<%=user.data.job_title></p>
+	<p>freelancing: <%=user.data.freelancing></p>
+	<p>Bank IFSC code:<%=user.data.bank_ifsc></p>
+	<p>Looking For Projects:<%=user.data.looking_projects> </p>
+	<p>mobile No:<%=user.data.mobile> </p>
+	<% } %>
 <% } %>
 </body>
 </html>

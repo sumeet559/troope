@@ -18,9 +18,6 @@ passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
 
-
-// Use the FacebookStrategy within Passport.
-
 passport.use('facebook',new FacebookStrategy({
     clientID: config.facebook_api_key,
     clientSecret:config.facebook_api_secret ,
@@ -29,7 +26,8 @@ passport.use('facebook',new FacebookStrategy({
   function(accessToken, refreshToken, profile, done) {
     var user_data={
                     "user_id":profile.id,
-                    "username":profile.displayName
+                    "username":profile.displayName,
+                    "data":{}
                   };
     if(config.use_database==='true')
       {
@@ -38,7 +36,7 @@ passport.use('facebook',new FacebookStrategy({
           "user_id": profile.id
         },function(err,result){
           if(err) throw err;
-              if(result)
+              if(!result)
                 {
                   console.log("There is no such user, adding now");
                   
@@ -48,6 +46,7 @@ passport.use('facebook',new FacebookStrategy({
                   });
                 }
                 else {
+                  user_data.data=result.data;
                   console.log("User Already Exists");
                 }
             });
