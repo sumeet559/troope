@@ -9,7 +9,7 @@
 	<a href="/auth/facebook"><img src="fb-login.jpg" width="151" height="24"></a>
 	</div>
 <% } else { %>
-	<% if(!user.data) { %>
+	<% if(Object.keys(user.data).length === 0) { %>
 	<div>
 	<form method="post" action="/user-put" enctype="multipart/form-data"> 
     <fieldset>
