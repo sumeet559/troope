@@ -32,11 +32,10 @@ passport.use('facebook',new FacebookStrategy({
     if(config.use_database==='true')
       {
         MongoClient.connect(config.mongo_url, function(err, db) {
-        db.collection('troope_users').findOne({
+        db.collection('troope_users').find({
           "user_id": profile.id
         },function(err,result){
           if(err) throw err;
-          console.log("result temp pringt>>>>>> ",result);
               if(!result.username)
                 {
                   db.collection('troope_users').insertOne(user_data,function(err,result){
@@ -44,7 +43,7 @@ passport.use('facebook',new FacebookStrategy({
                   });
                 }
                 else {
-                  user_data["data"]=result.data;
+                  user_data.data=result.data;
                 }
             });
             db.close();
