@@ -120,7 +120,7 @@ app.post('/user-put', function(req, res){
                  }
             )
         });
-        res.render('index',user);
+        res.render('index',{user:user});
 });
 
 
