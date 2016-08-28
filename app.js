@@ -32,7 +32,7 @@ passport.use('facebook',new FacebookStrategy({
     if(config.use_database==='true')
       {
         MongoClient.connect(config.mongo_url, function(err, db) {
-        db.collection('troope_users').find({
+        db.collection('troope_users').findOne({
           "user_id": profile.id
         },function(err,result){
           if(err) throw err;
