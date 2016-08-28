@@ -27,6 +27,10 @@ passport.use('facebook',new FacebookStrategy({
     callbackURL: config.callback_url
   },
   function(accessToken, refreshToken, profile, done) {
+    var user_data={
+                    "user_id":profile.id,
+                    "user_name":profile.displayName
+                  };
     if(config.use_database==='true')
       {
         MongoClient.connect(config.mongo_url, function(err, db) {
@@ -37,10 +41,7 @@ passport.use('facebook',new FacebookStrategy({
               if(result.length===0)
                 {
                   console.log("There is no such user, adding now");
-                  var user_data={
-                    "user_id":profile.id,
-                    "user_name":profile.displayName
-                  }
+                  
                   db.collection('troope_users').insertOne(user_data,function(err,result){
                     if(err) throw err;
                     console.log("Successfully added a user: "+result);
