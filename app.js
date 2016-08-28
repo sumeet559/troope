@@ -87,7 +87,9 @@ app.get('/logout', function(req, res){
 });
 
 app.post('/user-put', function(req, res){
-   console.log("In Submission POST")
+   console.log("In Submission POST");
+   console.log("request for posting >> ",req);
+    console.log("rtesult>>>>>>>>> for posting >> ",req.body);
         MongoClient.connect(config.mongo_url, function(err, db) {
             db.collection("troope_users").updateOne(
                 { "user_id" : req.body.user_id },
@@ -102,7 +104,6 @@ app.post('/user-put', function(req, res){
                  } },function(err,result){
                     if(err) throw err;
                     else {
-                      console.log("result update one>> ",result);
                     }
                  }
             )
