@@ -88,8 +88,20 @@ app.get('/logout', function(req, res){
 
 app.post('/user-put', function(req, res){
    console.log("In Submission POST");
-   console.log("request for posting >> ",req);
-    console.log("rtesult>>>>>>>>> for posting >> ",req.body);
+   var user={
+            user_name:req.body.user_name,
+            user_id:req.body.user_id,
+            data:{
+              address:req.body.address,
+                        bank_no :req.body.bank_no,
+                        current_company : req.body.current_company,
+                        job_title : req.body.job_title,
+                        freelancing : req.body.freelancing,
+                        bank_ifsc:req.body.bank_ifsc,
+                        looking_projects: req.body.looking_projects,
+                        mobile:req.body.mobile
+                 }
+          };
         MongoClient.connect(config.mongo_url, function(err, db) {
             db.collection("troope_users").updateOne(
                 { "user_id" : req.body.user_id },
@@ -108,9 +120,7 @@ app.post('/user-put', function(req, res){
                  }
             )
         });
-        res.render('./views/index.ejs',{
-            Test: TestType
-        });
+        res.render('index',user);
 });
 
 
