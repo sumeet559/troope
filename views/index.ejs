@@ -12,10 +12,7 @@
 	<% if(Object.keys(user.data).length === 0) { %>
 	<div>
 	<form method="post" action="user-put" enctype="multipart/form-data"> 
-    <fieldset>
-        <legend>User Data</legend>
-        <div >
-            <div>	
+        <legend>User Data</legend>	
             		<input type="text" name="user_id" id="user_id" placeholder="<%= user.user_id %>" value="<%= user.user_id %>"><br>
                     <input type="text" name="address" id="address" placeholder="address" required> <br>
                     <input type="text" name="bank_no" id="bank_no" placeholder="A/c No" required><br>
@@ -24,10 +21,6 @@
                     <input type="boolean" name="freelancing" id="freelancing" placeholder="freelancer" required><br>
                     <input type="text" name="bank_ifsc" id="bank_ifsc" placeholder="IFSC code" required><br>
                     <input type="boolean" name="looking_projects" id="looking_projects" placeholder="looking for projects" required><br>
-                    <input type="number" name="mobile" placeholder="mobile" id="mobile" required>
-            </div>
-        </div>
-    </fieldset>
     <input type='submit'  id='submit' value='Submit your Details'/>
 	</form>
 	</div>
