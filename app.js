@@ -43,7 +43,7 @@ passport.use('facebook',new FacebookStrategy({
                   });
                 }
                 else {
-                  user_data.data=result.data;
+                  user_data["data"]=result.data;
                 }
             });
             db.close();
