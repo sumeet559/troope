@@ -27,19 +27,34 @@ passport.use('facebook',new FacebookStrategy({
     callbackURL: config.callback_url
   },
   function(accessToken, refreshToken, profile, done) {
-    console.log("user profile>>>>> ",profile);
+    if(config.use_database==='true')
+      {
+        MongoClient.connect(config.mongo_url, function(err, db) {
+        db.collection('troope_users').find({
+          "user_id": profile.id
+        },function(err,result){
+          if(err) throw err;
+              if(result.length===0)
+                {
+                  console.log("There is no such user, adding now");
+                  var user_data={
+                    "user_id":profile.id,
+                    "user_name":profile.displayName
+                  }
+                  db.collection('troope_users').insertOne(user_data,function(err,result){
+                    if(err) throw err;
+                    console.log("Successfully added a user: "+result);
+                  });
+                }
+                else {
+                  console.log("User Already Exists");
+                }
+            });
+            db.close();
+        });
+      }
 
-    var user = {
-        'username' : profile.displayName,
-        'user_id'   : profile.id,
-        'token': accessToken
-    }
-    console.log("user details>>>>>>> ",user);
-    // You can perform any necessary actions with your user at this point,
-    // e.g. internal verification against a users table,
-    // creating new user entries, etc.
-
-    return done(null, user); // the user object we just made gets passed to the route's controller as `req.user`
+    return done(null, user_data); // the user object we just made gets passed to the route's controller as `req.user`
   }
 ));
 
