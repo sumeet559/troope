@@ -36,6 +36,7 @@ passport.use('facebook',new FacebookStrategy({
           "user_id": profile.id
         },function(err,result){
           if(err) throw err;
+          console.log("result temp pringt>>>>>> ",result);
               if(!result.username)
                 {
                   db.collection('troope_users').insertOne(user_data,function(err,result){
