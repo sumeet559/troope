@@ -104,7 +104,7 @@ app.post('/user-put', function(req, res){
                         "data.bank_ifsc":req.body.bank_ifsc,
                         "data.looking_projects": req.body.looking_projects,
                         "data.mobile":req.body.mobile
-                 } }{upsert:true},function(err,result){
+                 } },{upsert:true},function(err,result){
                     if(err) throw err;
                     else {
                       console.log("result update one>> ",result);
