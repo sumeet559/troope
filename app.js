@@ -92,7 +92,7 @@ app.get('/logout', function(req, res){
 
 app.post('/user-put', function(req, res){
    console.log("In Submission POST")
-        var user_data = "";
+        var data = {};
         MongoClient.connect(config.mongo_url, function(err, db) {
             db.collection("troope_users").updateOne(
                 { "user_id" : req.body.user_id },
